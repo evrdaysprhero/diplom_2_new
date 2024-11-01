@@ -72,10 +72,7 @@ public class PatchUserTest extends AbstractApiTest {
 
         //обновляем данные
         User patchRequest = new User(email + "text", "New Name");
-        given()
-                .header("Content-type", "application/json")
-                .body(patchRequest)
-                .patch("/api/auth/user")
+        ApiHelper.patchUser(patchRequest)
                 .then()
                 .assertThat()
                 .statusCode(401);

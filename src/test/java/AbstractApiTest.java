@@ -1,5 +1,5 @@
 public class AbstractApiTest {
 
-    public String URL = "https://stellarburgers.nomoreparties.site/";
+    public static final String URL = "https://stellarburgers.nomoreparties.site/";
 
 }

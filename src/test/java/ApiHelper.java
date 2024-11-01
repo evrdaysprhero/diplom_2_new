@@ -7,11 +7,11 @@ import static io.restassured.RestAssured.given;
 
 public class ApiHelper {
 
-    public static String API_ORDERS = "/api/orders";
-    public static String API_OAUTH_USER = "/api/auth/user";
-    public static String API_OAUTH_REGISTER = "/api/auth/register";
-    public static String API_OAUTH_LOGIN = "/api/auth/login";
-    public static String API_INGREDIENTS = "/api/ingredients";
+    public static final String API_ORDERS = "/api/orders";
+    public static final String API_OAUTH_USER = "/api/auth/user";
+    public static final String API_OAUTH_REGISTER = "/api/auth/register";
+    public static final String API_OAUTH_LOGIN = "/api/auth/login";
+    public static final String API_INGREDIENTS = "/api/ingredients";
 
     @Step("Вызов /api/auth/register")
     public static Response postLogin(LoginRequest loginRequest) {
@@ -65,11 +65,19 @@ public class ApiHelper {
                 .get(API_ORDERS);
     }
 
-    @Step("Обновление данных. Вызов /api/auth/user")
+    @Step("Обновление данных с авторизацией. Вызов /api/auth/user")
     public static Response patchUser(User user, String accessToken) {
         return given()
                 .header("Content-type", "application/json")
                 .header("authorization", accessToken)
+                .body(user)
+                .patch(API_OAUTH_USER);
+    }
+
+    @Step("Обновление данных без авторизации. Вызов /api/auth/user")
+    public static Response patchUser(User user) {
+        return given()
+                .header("Content-type", "application/json")
                 .body(user)
                 .patch(API_OAUTH_USER);
     }
