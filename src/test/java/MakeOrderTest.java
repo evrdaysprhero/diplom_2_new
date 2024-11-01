@@ -47,7 +47,7 @@ public class MakeOrderTest extends AbstractApiTest {
         String accessToken = ApiHelper.authUser(password, email);
 
         //создание заказа
-        MakeOrderRequest order = new MakeOrderRequest(List.of("61c0c5a71d1f82001bdaaa73", "61c0c5a71d1f82001bdaaa6e", "61c0c5a71d1f82001bdaaa6c"));
+        MakeOrderRequest order = new MakeOrderRequest(ApiHelper.getIngredientsList());
         Response response = ApiHelper.postOrders(order, accessToken);
         checkResponseCode(response, 200);
 
@@ -64,7 +64,7 @@ public class MakeOrderTest extends AbstractApiTest {
     public void makeOrderNoAuthSuccess() {
 
         //создание заказа
-        MakeOrderRequest order = new MakeOrderRequest(List.of("61c0c5a71d1f82001bdaaa73", "61c0c5a71d1f82001bdaaa6e", "61c0c5a71d1f82001bdaaa6c"));
+        MakeOrderRequest order = new MakeOrderRequest(ApiHelper.getIngredientsList());
         Response response = ApiHelper.postOrders(order);
         checkResponseCode(response, 200);
 

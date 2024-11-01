@@ -3,6 +3,8 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import pojo.*;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 
 public class ApiHelper {
@@ -125,5 +127,17 @@ public class ApiHelper {
         given()
                 .header("authorization", accessToken)
                 .delete(API_OAUTH_USER);
+    }
+
+    @Step("Получить набор ингридиентов")
+    public static List<String> getIngredientsList() {
+
+        GetIngredientsResponse ingredients = getIngredients()
+                .body()
+                .as(GetIngredientsResponse.class);
+
+        return List.of(ingredients.getData().get(0).get_id(),
+                ingredients.getData().get(1).get_id());
+
     }
 }

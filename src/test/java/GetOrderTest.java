@@ -53,18 +53,13 @@ public class GetOrderTest extends AbstractApiTest{
     @DisplayName("С авторизацией")
     public void getOrderWithAuthSuccess() {
 
-        GetIngredientsResponse ingredients = ApiHelper.getIngredients()
-                .body()
-                .as(GetIngredientsResponse.class);
-
-        List<String> ingredientsList = List.of(ingredients.getData().get(0).get_id(),
-                ingredients.getData().get(1).get_id());
+        List<String> ingredientsList = ApiHelper.getIngredientsList();
 
         //авторизация
         String accessToken = ApiHelper.authUser(password, email);
 
         //создать заказ
-        MakeOrderRequest order = new MakeOrderRequest(ingredientsList);
+        MakeOrderRequest order = new MakeOrderRequest(ApiHelper.getIngredientsList());
         ApiHelper.postOrders(order, accessToken);
 
         //получить заказ
